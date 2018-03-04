@@ -26,7 +26,6 @@ public class TomcatlogService {
     }
 
     public List<Tomcatlog> testget() {
-        // TODO Auto-generated method stub
         return tomcatlogDao.testget();
     }
 }

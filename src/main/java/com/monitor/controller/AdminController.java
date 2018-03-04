@@ -44,7 +44,7 @@ public class AdminController {
 			readfilepath = logfilepath+"/localhost_access_log." + date + ".txt";
 		}
 		if (null == writefilepath) {
-			SimpleDateFormat sfDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+			SimpleDateFormat sfDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sfDateFormat.format(new Date());
 			writefilepath = targetfilepath+"/accesslog." + date + ".txt";
 		}
