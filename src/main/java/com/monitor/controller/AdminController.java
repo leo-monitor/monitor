@@ -58,7 +58,7 @@ public class AdminController {
 			lines = totallines;
 		}
 		try {
-			long time = tomcatlogService.copytomcatloglastline(readfilepath, writefilepath, lines);
+			long time = IoUtil.copytomcatloglastline(readfilepath, writefilepath, lines);
 			Thread.sleep(2000);
 			tomcatlogService.copylog(writefilepath,databasetype);
 			sno.setMessage("转存日志耗时" + time);
