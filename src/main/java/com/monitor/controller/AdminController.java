@@ -23,6 +23,10 @@ public class AdminController {
 	 private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Value("${spring.profiles.databasetype}")
 	private String databasetype;
+	@Value("${spring.profiles.logfilepath}")
+	private String logfilepath;
+	@Value("${spring.profiles.targetfilepath}")
+	private String targetfilepath;
 	@Autowired
 	private TomcatlogService tomcatlogService;
 
@@ -37,12 +41,12 @@ public class AdminController {
 		if (null == readfilepath) {
 			SimpleDateFormat sfDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sfDateFormat.format(new Date());
-			readfilepath = "/usr/software/ymall/test/apache-tomcat-7.0.53/logs/localhost_access_log." + date + ".txt";
+			readfilepath = logfilepath+"/localhost_access_log." + date + ".txt";
 		}
 		if (null == writefilepath) {
 			SimpleDateFormat sfDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
 			String date = sfDateFormat.format(new Date());
-			writefilepath = "/usr/software/ymall/test/apache-tomcat-7.0.53/logs/accesslog." + date + ".txt";
+			writefilepath = targetfilepath+"/accesslog." + date + ".txt";
 		}
 		int totallines = 0;
 		try {

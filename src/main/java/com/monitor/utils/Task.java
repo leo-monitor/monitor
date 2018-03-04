@@ -63,7 +63,7 @@ public class Task {
 			logger.info("get readfilepath is "+ readfilepath);
 			logger.info("get writefilepath is "+ writefilepath);
 			//先将日志转格式写入文档
-			long time = tomcatlogService.copytomcatloglastline(readfilepath, writefilepath, lines);
+			long time = IoUtil.copytomcatloglastline(readfilepath, writefilepath, lines);
 			Thread.sleep(2000);
 			//在通过sql将文档写入数据库
 			tomcatlogService.copylog(writefilepath,databasetype);
