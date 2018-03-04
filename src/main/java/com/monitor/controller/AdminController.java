@@ -9,6 +9,7 @@ import com.monitor.service.TomcatlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,12 @@ import com.monitor.utils.SimpleNetObject;
 @RequestMapping("/admin")
 public class AdminController {
 	 private final Logger logger = LoggerFactory.getLogger(getClass());
+	@Value("${spring.profiles.databasetype}")
+	private String databasetype;
 	@Autowired
 	private TomcatlogService tomcatlogService;
 
+	//转存日志指定最后几行，如果不指定行数默认1000行
 	@RequestMapping("/copytomcatloglastline")
 	public SimpleNetObject copytomcatloglastline(String readfilepath, String writefilepath, long lines) {
 		SimpleNetObject sno = new SimpleNetObject();
@@ -52,7 +56,7 @@ public class AdminController {
 		try {
 			long time = tomcatlogService.copytomcatloglastline(readfilepath, writefilepath, lines);
 			Thread.sleep(2000);
-			tomcatlogService.copylog(writefilepath);
+			tomcatlogService.copylog(writefilepath,databasetype);
 			sno.setMessage("转存日志耗时" + time);
 			logger.info("info test");
 			logger.debug("debug test");

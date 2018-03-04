@@ -62,7 +62,7 @@ public class IoUtil {
 				}
 				// 将各字符串以分号;连接,最后加上换行符
 				sb.append(strings[0]).append(";").append(strings[1]).append(";").append(strings[2]).append(";")
-						.append("\"").append(newdatestr).append("\"").append(";").append(strings[4]).append("\r\n");
+						.append(newdatestr).append(";").append(strings[4]).append("\r\n");
 				linenum++;
 			}
 			// 写入新的文件
@@ -134,7 +134,7 @@ public class IoUtil {
 				}
 				// 将各字符串以分号;连接,最后加上换行符
 				sb.append(strings[0]).append(";").append(strings[1]).append(";").append(strings[2]).append(";")
-						.append("\"").append(newdatestr).append("\"").append(";").append(strings[4]).append("\r\n");
+						.append(newdatestr).append(";").append(strings[4]).append("\r\n");
 				counter++;
 			}
 			try {

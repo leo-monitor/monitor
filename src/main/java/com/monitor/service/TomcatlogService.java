@@ -17,9 +17,13 @@ public class TomcatlogService {
     @Autowired
     private TomcatlogDao tomcatlogDao;
 
-	public int copylog(String file) {
-		
-		return tomcatlogDao.copylog(file);
+	public int copylog(String file,String database) {
+		if (null==database) {
+			return tomcatlogDao.copylog(file);
+		}else if (database.equals("mysql")){
+			return tomcatlogDao.copylogformysql(file);
+		}
+		return 0;
 	}
 	/**
 	 * 将整个日志文件转格式存到新文档并写入数据库

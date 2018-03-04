@@ -16,5 +16,8 @@
 	<insert id="copylog">
 		copy t_app_tomcatlog from '${file}' csv delimiter ';' quote '"'
 	</insert>
+	<insert id="copylogformysql">
+	LOAD DATA INFILE "${file}" INTO TABLE t_app_tomcatlog fields terminated by ';'
+	</insert>
 
 </mapper>

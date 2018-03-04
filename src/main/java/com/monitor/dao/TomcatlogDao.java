@@ -9,5 +9,6 @@ import com.monitor.model.Tomcatlog;
 
 public interface TomcatlogDao {
 	int copylog(@Param("file") String file);
+	int copylogformysql(@Param("file") String file);
 	List<Tomcatlog> testget();
 }
