@@ -107,6 +107,7 @@ public class IoUtil {
         StringBuffer sb = new StringBuffer();
         ReversedLinesFileReader object = new ReversedLinesFileReader(readfile, 4096, "UTF-8");
         BufferedWriter writer = null;
+
         try {
             while (counter <= lines) {
                 // 读取下一行

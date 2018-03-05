@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monitor.dao.UserDao">
     <resultMap id="BaseResultMap" type="com.monitor.model.User">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="user_type" jdbcType="INTEGER" property="userType" />
+        <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+        <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
     </resultMap>
 
     <select id="selectByUsername" resultType="com.monitor.model.User">

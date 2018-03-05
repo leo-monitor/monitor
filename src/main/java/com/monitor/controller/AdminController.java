@@ -43,6 +43,7 @@ public class AdminController {
 			String date = sfDateFormat.format(new Date());
 			readfilepath = logfilepath+"/localhost_access_log." + date + ".txt";
 		}
+
 		if (null == writefilepath) {
 			SimpleDateFormat sfDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sfDateFormat.format(new Date());

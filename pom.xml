@@ -9,6 +9,18 @@
 	<packaging>jar</packaging>
 	<name>monitor</name>
 	<description>monitor</description>
+	<repositories>
+		<repository>
+			<id>json</id>
+			<name>json</name>
+			<url>http://maven.jahia.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>maven2</id>
+			<name>maven2</name>
+			<url> http://central.maven.org/maven2/</url>
+		</repository>
+	</repositories>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -101,6 +113,14 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+
+		<!-- 省略get和set方法 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.18</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

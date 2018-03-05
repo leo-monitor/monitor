@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monitor.dao.TomcatlogDao">
 	<resultMap id="BaseResultMap" type="com.monitor.model.Tomcatlog">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="call_ip" jdbcType="VARCHAR" property="callIp" />
+		<result column="call_url" jdbcType="VARCHAR" property="callUrl" />
+		<result column="call_time" jdbcType="INTEGER" property="callTime" />
+		<result column="call_date" jdbcType="TIMESTAMP" property="callDate" />
+		<result column="call_status" jdbcType="VARCHAR" property="callStatus" />
+		<result column="created_date" jdbcType="DATE" property="createdDate" />
 	</resultMap>
 
 	<select id="testget" resultType="com.monitor.model.Tomcatlog">
@@ -17,7 +21,7 @@
 		copy t_app_tomcatlog from '${file}' csv delimiter ';' quote '"'
 	</insert>
 	<insert id="copylogformysql">
-	LOAD DATA INFILE "${file}" INTO TABLE t_app_tomcatlog fields terminated by ';'
+	LOAD DATA local INFILE "${file}" INTO TABLE t_app_tomcatlog fields terminated by ';'
 	</insert>
 
 </mapper>

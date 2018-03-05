@@ -21,12 +21,12 @@ public class UserService {
     }
 
 
-    public int insertUser(@Param("username") String username, @Param("password") String password, @Param("user_type") int user_type) {
+    public int insertUser(@Param("username") String username, @Param("password") String password, @Param("user_type") int userType) {
         User entity = new User();
         entity.setUsername(username);
         entity.setPassword(password);
-        entity.setUser_type(user_type);
-        entity.setCreated_date(new Date());
+        entity.setUserType(userType);
+        entity.setCreatedDate(new Date());
         return userDao.insertUser(entity);
     }
 }
