@@ -121,14 +121,14 @@ public class IoUtil {
                 String[] datestr = str2.split(" ");
                 String calldatestring = datestr[0];
                 // 将27/Dec/2017:16:10:32转换格式
-                Date calldate = new Date();
-                String newdatestr = null;
+                Long calldate = null;
+//                String newdatestr = null;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH);
-                SimpleDateFormat sdfnew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                SimpleDateFormat sdfnew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
-                    calldate = sdf.parse(calldatestring);
+                    calldate = sdf.parse(calldatestring).getTime();
                     // 转换得到newdatestr格式为yyyy-MM-dd HH:mm:ss
-                    newdatestr = sdfnew.format(calldate);
+//                    newdatestr = sdfnew.format(calldate);
 
                 } catch (ParseException e) {
                     // TODO Auto-generated catch block
@@ -137,7 +137,7 @@ public class IoUtil {
                 }
                 // 将各字符串以分号;连接,最后加上换行符
                 sb.append(strings[0]).append(";").append(strings[1]).append(";").append(strings[2]).append(";")
-                        .append(newdatestr).append(";").append(strings[4]).append("\r\n");
+                        .append(calldate).append(";").append(strings[4]).append("\r\n");
                 counter++;
             }
             try {
