@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import org.apache.commons.io.input.ReversedLinesFileReader;
@@ -168,29 +169,30 @@ public class IoUtil {
         object.close();
 	}
 
-	public static void main(String[] args) throws IOException {
-		long startat = System.currentTimeMillis();
+	public static void main(String[] args) throws IOException, ParseException {
+
 		//conversionFileLastLine("F:/test.txt", "F:/newtest.txt",10);
-		long endat = System.currentTimeMillis();
-		long time = endat - startat;
-		System.out.println("hello world");
+		String datestr = "2018-03-01 00:00:00";
+		SimpleDateFormat sdfnew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date =sdfnew.parse(datestr);
+		long start1 = System.currentTimeMillis();
+		System.out.println("第一种转换开始时间 "+start1 );
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		long datelong =calendar.getTimeInMillis();
+		long endat1 = System.currentTimeMillis();
+		System.out.println("第一种转换结束时间 "+endat1 );
+		long time1 = endat1 - start1;
+		System.out.println("第一种转换耗时 "+time1 );
+		long start2 = System.currentTimeMillis();
+		System.out.println("第二种转换开始时间 "+start2 );
+		long datelong2 = date.getTime();
+		long endat2 = System.currentTimeMillis();
+		System.out.println("第二种转换结束时间 "+endat2 );
+		long time2 = endat2-start2;
+		System.out.println("第二种转换耗时 "+time2 );
 	}
-	@Test
-	public void testjunit(){
-		System.out.println("hello world");
-	}
-	@Test
-	public void test2junit(){
-		System.out.println("hello world2");
-	}
-	@Test
-	public void test3junit(){
-		System.out.println("hello world3");
-	}
-	@Test
-	public void test4junit(){
-		System.out.println("hello world4");
-	}
+
 	public static int countLines(String filename) throws IOException {    
 	    LineNumberReader reader  = new LineNumberReader(new FileReader(filename));    
 	int cnt = 0;    

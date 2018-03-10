@@ -18,6 +18,6 @@ public class Tomcatlog{
 
 	private String callStatus;
 
-	private java.util.Date createdDate;
+	private Date createdDate;
 	
 }

@@ -53,6 +53,7 @@ public class IoUtil {
                 SimpleDateFormat sdfnew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
                     calldate = sdf.parse(calldatestring);
+                    long newdatenum = calldate.getTime();
                     // 转换得到yyyy-MM-dd HH:mm:ss格式的请求时间
                     newdatestr = sdfnew.format(calldate);
 
