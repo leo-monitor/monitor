@@ -5,9 +5,8 @@
 		<result column="call_ip" jdbcType="VARCHAR" property="callIp" />
 		<result column="call_url" jdbcType="VARCHAR" property="callUrl" />
 		<result column="call_time" jdbcType="INTEGER" property="callTime" />
-		<result column="call_date" jdbcType="TIMESTAMP" property="callDate" />
+		<result column="call_date" jdbcType="BIGINT" property="callDate" />
 		<result column="call_status" jdbcType="VARCHAR" property="callStatus" />
-		<result column="created_date" jdbcType="DATE" property="createdDate" />
 	</resultMap>
 
 	<select id="testget" resultType="com.monitor.model.Tomcatlog">

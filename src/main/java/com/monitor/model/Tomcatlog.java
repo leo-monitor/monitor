@@ -12,12 +12,10 @@ public class Tomcatlog{
 
 	private String callUrl;
 
-	private int callTime;
+	private Integer callTime;
 
-	private Date callDate;
+	private Long callDate;
 
 	private String callStatus;
-
-	private Date createdDate;
 	
 }
