@@ -1,7 +1,6 @@
 package com.monitor.controller;
 
-import com.monitor.model.User;
-import com.monitor.service.UserService;
+import com.monitor.entity.SysUser;
 import com.monitor.utils.SimpleNetObject;
 import com.monitor.utils.StringTool;
 import org.slf4j.Logger;
@@ -21,13 +20,13 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
-    private UserService userService;
+    private SysUserService userService;
 
     @RequestMapping("/selectByUsername")
     public SimpleNetObject selectByUsername(String username) {
         SimpleNetObject sno = new SimpleNetObject();
         if (null != userService.selectByUsername(username)) {
-            User user = userService.selectByUsername(username);
+            SysUser user = userService.selectByUsername(username);
             sno.setData(user);
         }
 
@@ -77,7 +76,7 @@ public class LoginController {
      */
     private SimpleNetObject validatePw(String username, String password) {
         SimpleNetObject sno = new SimpleNetObject();
-        User entity = userService.selectByUsername(username);
+        SysUser entity = userService.selectByUsername(username);
         if (entity.getPassword().equalsIgnoreCase(StringTool.Encrypt(password, null))) {
             sno.setMessage("登陆成功");
             sno.setData(entity);

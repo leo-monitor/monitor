@@ -382,7 +382,7 @@ public class ExcelUtil {
 				String colname = entry.getKey();
 
 				// Method
-				// method=model.getClass().getMethod("get"+colname.substring(0,1).toUpperCase()+colname.substring(1));
+				// method=entity.getClass().getMethod("get"+colname.substring(0,1).toUpperCase()+colname.substring(1));
 				Field field = getDeclaredField(model, colname);
 				field.setAccessible(true);
 				String type = field.getGenericType().toString();
@@ -509,7 +509,7 @@ public class ExcelUtil {
 				} catch (NoSuchMethodException e) {
 					logger.error(e.getMessage(), e);
 				}
-				// Field field=getDeclaredField(model,colname);
+				// Field field=getDeclaredField(entity,colname);
 				// if(null == field)
 				// {
 				// continue;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.monitor.model.Tomcatlog;
+import com.monitor.entity.Tomcatlog;
 
 
 public interface TomcatlogDao {

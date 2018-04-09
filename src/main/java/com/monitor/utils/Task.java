@@ -2,7 +2,7 @@
 //
 //import org.springframework.scheduling.annotation.Scheduled;
 //
-//import com.monitor.model.Tomcatlog;
+//import com.monitor.entity.Tomcatlog;
 //import com.monitor.service.TomcatlogService;
 //
 //

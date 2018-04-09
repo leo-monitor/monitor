@@ -3,7 +3,7 @@ package com.monitor.utils;
 
 
 import com.monitor.exceptions.SessionException;
-import com.monitor.model.User;
+import com.monitor.entity.SysUser;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +19,7 @@ public class SessionUtil {
 	 */
 	public static String getCurrentUserName(HttpSession session) {
 
-		User userInfo = (User) session.getAttribute(SESSION_APPUSERINFO);
+		SysUser userInfo = (SysUser) session.getAttribute(SESSION_APPUSERINFO);
 		if (userInfo == null || StringTool.isNullOrEmpty(userInfo.getUsername())) {
 			throw new SessionException();
 		} else
