@@ -83,12 +83,13 @@ public class AdminController {
 	@RequestMapping("/testtomcatlog")
 	public SimpleNetObject testtomcatlog() {
 		SimpleNetObject sno = new SimpleNetObject();
-		List<Tomcatlog> list = tomcatlogService.testget();
-		sno.setData(list);
-		logger.info("info test");
-		logger.debug("debug test");
-		logger.warn("warn test");
-		logger.error("error test");
+//		List<Tomcatlog> list = tomcatlogService.testget();
+//		sno.setData(list);
+//		logger.info("info test");
+//		logger.debug("debug test");
+//		logger.warn("warn test");
+//		logger.error("error test");
+		sno=new SimpleNetObject(1,"success");
 		return sno;
 
 	}

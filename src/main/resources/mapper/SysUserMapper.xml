@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitor.dao.SysUserMapper">
+  <resultMap type="com.monitor.entity.SysUser" id="BaseResult">
+  	<id column="oid" jdbcType="INTEGER" property="oid"/>
+  </resultMap>
+   
+  <insert id="add" parameterType="com.monitor.entity.SysUser" >
+     insert into sys_user(
+	      														oid					
+									      													  ,username
+									      													  ,password
+									      													  ,salt
+									      													  ,user_type
+									      													  ,created_date
+									      													  ,updated_date
+									      													  ,lastlogin_date
+									      )
+    values(
+	        												#{oid}
+										        						   			   ,#{username}
+			   		    			        						   			   ,#{password}
+			   		    			        						   			   ,#{salt}
+			   		    			        						   			   ,#{user_type}
+			   		    			        						   			   ,#{created_date}
+			   		    			        						   			   ,#{updated_date}
+			   		    			        						   			   ,#{lastlogin_date}
+			   		    			)
+                                                                                     
+  </insert>
+  
+  <select id="list" resultType="com.monitor.entity.SysUser">
+  	select * from sys_user
+ <where>
+                   <if test="oid!=null and oid!=''">
+                 and oid=#{oid}
+            </if>
+                   <if test="username!=null and username!=''">
+                 and username=#{username}
+            </if>
+                   <if test="password!=null and password!=''">
+                 and password=#{password}
+            </if>
+                   <if test="salt!=null and salt!=''">
+                 and salt=#{salt}
+            </if>
+                   <if test="user_type!=null and user_type!=''">
+                 and user_type=#{user_type}
+            </if>
+                   <if test="created_date!=null and created_date!=''">
+                 and created_date=#{created_date}
+            </if>
+                   <if test="updated_date!=null and updated_date!=''">
+                 and updated_date=#{updated_date}
+            </if>
+                   <if test="lastlogin_date!=null and lastlogin_date!=''">
+                 and lastlogin_date=#{lastlogin_date}
+            </if>
+               </where>
+  </select>
+ <delete id="delete">
+ 	delete from sys_user
+ 	where 			    oid=#{oid}
+          </delete>
+ 
+ <update id="update" parameterType="com.monitor.entity.SysUser">
+ 	update  sys_user <set> 
+									<if test="username!=null and username!=''">   
+                                     				              username=#{ username},
+                                  
+					</if>
+							<if test="password!=null and password!=''">   
+                                     				              password=#{ password},
+                                  
+					</if>
+							<if test="salt!=null and salt!=''">   
+                                     				              salt=#{ salt},
+                                  
+					</if>
+							<if test="user_type!=null and user_type!=''">   
+                                     				              user_type=#{ user_type},
+                                  
+					</if>
+							<if test="created_date!=null and created_date!=''">   
+                                     				              created_date=#{ created_date},
+                                  
+					</if>
+							<if test="updated_date!=null and updated_date!=''">   
+                                     				              updated_date=#{ updated_date},
+                                  
+					</if>
+							<if test="lastlogin_date!=null and lastlogin_date!=''">   
+                                     				              lastlogin_date=#{ lastlogin_date}
+					</if>
+			</set>
+ 	where 			    oid=#{oid}
+          </update>
+  <select id="getById" resultType="com.monitor.entity.SysUser">
+   	select * from sys_user
+  	where  	 oid=#{oid}   </select>
+	<select id="getByUsername" resultType="com.monitor.entity.SysUser">
+		select * from sys_user
+		where  	 username=#{username}   </select>
+<select id="query"
+		resultType="com.monitor.entity.SysUser">
+		select * from sys_user
+		<where>			
+			<foreach collection="jqQuery.query" separator="AND" item="condition">				 				
+				${condition.key} ${condition.operator} ${condition.value}
+			</foreach>
+		</where>
+  order by ${jqQuery.orderfield} ${jqQuery.ordertype}
+	</select>
+</mapper>

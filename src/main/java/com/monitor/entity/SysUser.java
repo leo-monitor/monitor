@@ -11,7 +11,7 @@ import java.util.List;
  */
 public @Data class SysUser implements Serializable {
     private static final long serialVersionUID = 123456789L;
-    private long oid;
+    private int oid;
     private String username;
     private String password;
     private String salt;//加密密码的盐
@@ -19,5 +19,6 @@ public @Data class SysUser implements Serializable {
     private Date created_date;
     private Date updated_date;
     private Date lastlogin_date;
-    private List<SysRole> roleList;
+    private List<String> rolenamelist;
+    private List<String> permissionnamelist;
 }

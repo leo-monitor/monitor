@@ -1,8 +1,15 @@
 package com.monitor.controller;
 
 import com.monitor.entity.SysUser;
+import com.monitor.service.SysUserService;
 import com.monitor.utils.SimpleNetObject;
 import com.monitor.utils.StringTool;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,74 +23,51 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2018/2/23.
  */
 @RestController
-@RequestMapping("/rest")
 public class LoginController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private SysUserService userService;
-
-    @RequestMapping("/selectByUsername")
-    public SimpleNetObject selectByUsername(String username) {
-        SimpleNetObject sno = new SimpleNetObject();
-        if (null != userService.selectByUsername(username)) {
-            SysUser user = userService.selectByUsername(username);
-            sno.setData(user);
-        }
-
-        return sno;
-    }
-
     @RequestMapping("/login")
     public String loginpage() {
 
         return "login";
     }
-
     @RequestMapping("/signin")
     @ResponseBody
     public SimpleNetObject signin(String username,
-                         String password, HttpSession session) throws Exception {
-        SimpleNetObject sno = validatePw(username, password);
-        if (sno.getResult() == 1) {
-            session.setAttribute("username",username);
-            session.setAttribute("user",sno.getData());
-        } else {
-            return new SimpleNetObject(-1,"登陆失败");
-        }
-        return sno;
-    }
-
-    @RequestMapping("/register")
-    @ResponseBody
-    public SimpleNetObject register(String username,
-                                    String password, HttpSession session) throws Exception {
-
+                         String password) throws Exception {
         SimpleNetObject sno = new SimpleNetObject();
-
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        Subject subject = SecurityUtils.getSubject();
         try {
-            int result = userService.insertUser(username, StringTool.Encrypt(password, null), 0);
-            if (result == 1) {
-                return new SimpleNetObject(1, "注册成功");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new SimpleNetObject(99, "注册失败");
+            subject.login(token);
+        }  catch (IncorrectCredentialsException ice) {
+        // 捕获密码错误异常
+            ice.printStackTrace();
+            return new SimpleNetObject(99,"密码异常");
+    } catch (UnknownAccountException uae) {
+        // 捕获未知用户名异常
+            uae.printStackTrace();
+            return new SimpleNetObject(98,"用户名异常");
+    } catch (ExcessiveAttemptsException eae) {
+        // 捕获错误登录过多的异常
+            eae.printStackTrace();
+            return new SimpleNetObject(97,"登录过多");
     }
-
-    /**
-     * 检验账号密码
-     */
-    private SimpleNetObject validatePw(String username, String password) {
+        SysUser user = userService.getByUsername(username);
+            subject.getSession().setAttribute("adminuser",user);
+        return new SimpleNetObject(1,"登录成功");
+    }
+    @RequestMapping("/testshirosession")
+    @ResponseBody
+    public SimpleNetObject testshirosession() throws Exception {
         SimpleNetObject sno = new SimpleNetObject();
-        SysUser entity = userService.selectByUsername(username);
-        if (entity.getPassword().equalsIgnoreCase(StringTool.Encrypt(password, null))) {
-            sno.setMessage("登陆成功");
-            sno.setData(entity);
-            return sno;
-            //添加登陆日志
-        } else {
-            return new SimpleNetObject(99, "登陆失败，请检查用户名密码");
+        Subject subject = SecurityUtils.getSubject();
+        SysUser user = (SysUser) subject.getSession().getAttribute("adminuser");
+        if (null!=user){
+            System.out.println(user.toString());
         }
+        sno.setData(user);
+        return sno;
     }
 }

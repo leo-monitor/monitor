@@ -3,6 +3,7 @@ package com.monitor.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public @Data class Tomcatlog implements Serializable {
 	private static final long serialVersionUID = 123456789L;
@@ -13,7 +14,7 @@ public @Data class Tomcatlog implements Serializable {
 
 	private Integer call_time;
 
-	private Long call_date;
+	private Date call_date;
 
 	private String call_status;
 	

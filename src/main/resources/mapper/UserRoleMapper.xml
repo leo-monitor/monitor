@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monitor.dao.UserRoleMapper">
+  <resultMap type="com.monitor.entity.UserRole" id="BaseResult">
+  	<id column="oid" jdbcType="INTEGER" property="oid"/>
+  </resultMap>
+   
+  <insert id="add" parameterType="com.monitor.entity.UserRole" >
+     insert into sys_user_role(
+	      														oid					
+									      													  ,user_id
+									      													  ,role_id
+									      													  ,created_date
+									      													  ,updated_date
+									      )
+    values(
+	        												#{oid}
+										        						   			   ,#{user_id}
+			   		    			        						   			   ,#{role_id}
+			   		    			        						   			   ,#{created_date}
+			   		    			        						   			   ,#{updated_date}
+			   		    			)
+                                                       
+  </insert>
+  
+  <select id="list" resultType="com.monitor.entity.UserRole">
+  	select * from sys_user_role
+ <where>
+                   <if test="oid!=null and oid!=''">
+                 and oid=#{oid}
+            </if>
+                   <if test="user_id!=null and user_id!=''">
+                 and user_id=#{user_id}
+            </if>
+                   <if test="role_id!=null and role_id!=''">
+                 and role_id=#{role_id}
+            </if>
+                   <if test="created_date!=null and created_date!=''">
+                 and created_date=#{created_date}
+            </if>
+                   <if test="updated_date!=null and updated_date!=''">
+                 and updated_date=#{updated_date}
+            </if>
+               </where>
+  </select>
+ <delete id="delete">
+ 	delete from sys_user_role
+ 	where 			    oid=#{oid}
+          </delete>
+ 
+ <update id="update" parameterType="com.monitor.entity.UserRole">
+ 	update  sys_user_role <set> 
+									<if test="user_id!=null and user_id!=''">   
+                                     				              user_id=#{ user_id},
+                                  
+					</if>
+							<if test="role_id!=null and role_id!=''">   
+                                     				              role_id=#{ role_id},
+                                  
+					</if>
+							<if test="created_date!=null and created_date!=''">   
+                                     				              created_date=#{ created_date},
+                                  
+					</if>
+							<if test="updated_date!=null and updated_date!=''">   
+                                     				              updated_date=#{ updated_date}
+					</if>
+			</set>
+ 	where 			    oid=#{oid}
+          </update>
+  <select id="getById" resultType="com.monitor.entity.UserRole">
+   	select * from sys_user_role
+  	where  	 oid=#{oid}   </select>
+<select id="query"
+		resultType="com.monitor.entity.UserRole">
+		select * from sys_user_role
+		<where>			
+			<foreach collection="jqQuery.query" separator="AND" item="condition">				 				
+				${condition.key} ${condition.operator} ${condition.value}
+			</foreach>
+		</where>
+  order by ${jqQuery.orderfield} ${jqQuery.ordertype}
+	</select>
+</mapper>

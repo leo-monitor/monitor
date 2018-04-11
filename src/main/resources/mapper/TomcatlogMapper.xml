@@ -1,26 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.monitor.dao.TomcatlogDao">
-	<resultMap id="BaseResultMap" type="com.monitor.entity.Tomcatlog">
-		<result column="call_ip" jdbcType="VARCHAR" property="callIp" />
-		<result column="call_url" jdbcType="VARCHAR" property="callUrl" />
-		<result column="call_time" jdbcType="INTEGER" property="callTime" />
-		<result column="call_date" jdbcType="BIGINT" property="callDate" />
-		<result column="call_status" jdbcType="VARCHAR" property="callStatus" />
-	</resultMap>
-
-	<select id="testget" resultType="com.monitor.entity.Tomcatlog">
-		select
-		*
-		from t_app_tomcatlog 
-		limit 10
+<mapper namespace="com.monitor.dao.TomcatlogMapper">
+  <resultMap type="com.monitor.entity.Tomcatlog" id="BaseResult">
+  	<id column="oid" jdbcType="INTEGER" property="oid"/>
+  </resultMap>
+   
+  <insert id="add" parameterType="com.monitor.entity.Tomcatlog" >
+     insert into t_app_tomcatlog(
+	      														call_ip					
+									      													  ,call_url
+									      													  ,call_time
+									      													  ,call_date
+									      													  ,call_status
+									      													  ,created_date
+									      )
+    values(
+	        												#{call_ip}
+										        						   			   ,#{call_url}
+			   		    			        						   			   ,#{call_time}
+			   		    			        						   			   ,#{call_date}
+			   		    			        						   			   ,#{call_status}
+			   		    			        						   			   ,#{created_date}
+			   		    			)
+                                                                 
+  </insert>
+  
+  <select id="list" resultType="com.monitor.entity.Tomcatlog">
+  	select * from t_app_tomcatlog
+ <where>
+                   <if test="call_ip!=null and call_ip!=''">
+                 and call_ip=#{call_ip}
+            </if>
+                   <if test="call_url!=null and call_url!=''">
+                 and call_url=#{call_url}
+            </if>
+                   <if test="call_time!=null and call_time!=''">
+                 and call_time=#{call_time}
+            </if>
+                   <if test="call_date!=null and call_date!=''">
+                 and call_date=#{call_date}
+            </if>
+                   <if test="call_status!=null and call_status!=''">
+                 and call_status=#{call_status}
+            </if>
+                   <if test="created_date!=null and created_date!=''">
+                 and created_date=#{created_date}
+            </if>
+               </where>
+  </select>
+ <delete id="delete">
+ 	delete from t_app_tomcatlog
+ 	where  </delete>
+ 
+ <update id="update" parameterType="com.monitor.entity.Tomcatlog">
+ 	update  t_app_tomcatlog <set> 
+						<if test="call_ip!=null and call_ip!=''">   
+                                     				              call_ip=#{ call_ip},
+                                  
+					</if>
+							<if test="call_url!=null and call_url!=''">   
+                                     				              call_url=#{ call_url},
+                                  
+					</if>
+							<if test="call_time!=null and call_time!=''">   
+                                     				              call_time=#{ call_time},
+                                  
+					</if>
+							<if test="call_date!=null and call_date!=''">   
+                                     				              call_date=#{ call_date},
+                                  
+					</if>
+							<if test="call_status!=null and call_status!=''">   
+                                     				              call_status=#{ call_status},
+                                  
+					</if>
+							<if test="created_date!=null and created_date!=''">   
+                                     				              created_date=#{ created_date}
+					</if>
+			</set>
+ 	where  </update>
+  <select id="getById" resultType="com.monitor.entity.Tomcatlog">
+   	select * from t_app_tomcatlog
+  	where    </select>
+<select id="query"
+		resultType="com.monitor.entity.Tomcatlog">
+		select * from t_app_tomcatlog
+		<where>			
+			<foreach collection="jqQuery.query" separator="AND" item="condition">				 				
+				${condition.key} ${condition.operator} ${condition.value}
+			</foreach>
+		</where>
+  order by ${jqQuery.orderfield} ${jqQuery.ordertype}
 	</select>
-
 	<insert id="copylog">
 		copy t_app_tomcatlog from '${file}' csv delimiter ';' quote '"'
 	</insert>
 	<insert id="copylogformysql">
-	LOAD DATA local INFILE "${file}" INTO TABLE t_app_tomcatlog fields terminated by ';'
+		LOAD DATA local INFILE "${file}" INTO TABLE t_app_tomcatlog fields terminated by ';'
 	</insert>
-
 </mapper>

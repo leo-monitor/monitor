@@ -10,23 +10,7 @@ public class SimpleListObject<T> extends SimpleNetObject {
 		this.rows=new ArrayList<T>();
 		
 	}
-	private int page;
-	
-	public int getPage() {
-		return page;
-	}
 
-	public void setPage(int page) {
-		this.page = page;
-	}
-	private int limit;
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
 	private int total;
 	
 	public int getTotal() {
@@ -37,15 +21,15 @@ public class SimpleListObject<T> extends SimpleNetObject {
 		this.total = total;
 	}
 	
-//	private int records;
-//	
-//	public int getRecords() {
-//		return records;
-//	}
-//
-//	public void setRecords(int records) {
-//		this.records = records;
-//	}
+	private int records;
+
+	public int getRecords() {
+		return records;
+	}
+
+	public void setRecords(int records) {
+		this.records = records;
+	}
 	private List<T> rows;
 
 	public List<T> getRows() {
