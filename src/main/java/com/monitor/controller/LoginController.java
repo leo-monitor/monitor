@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+import static com.monitor.utils.StringTool.checkIfNull;
+
 /**
  * Created by Administrator on 2018/2/23.
  */
@@ -36,6 +38,11 @@ public class LoginController {
     @ResponseBody
     public SimpleNetObject signin(String username,
                          String password) throws Exception {
+        if(StringTool.checkNullOrEmpty(username,password)){
+            return StringTool.setNullMessages(
+                    checkIfNull(username,password),
+                    "用户名不能为空","密码不能为空");
+        }
         SimpleNetObject sno = new SimpleNetObject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
@@ -58,6 +65,25 @@ public class LoginController {
             subject.getSession().setAttribute("adminuser",user);
         return new SimpleNetObject(1,"登录成功");
     }
+
+    @RequestMapping("/logout")
+    @ResponseBody
+    public SimpleNetObject logout()  {
+        SimpleNetObject sno = new SimpleNetObject();
+        try {
+            //退出
+            SecurityUtils.getSubject().logout();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Subject subject = SecurityUtils.getSubject();
+        if (null!=subject.getSession().getAttribute("adminuser")){
+            return new SimpleNetObject(99,"注销失败");
+        }else {
+            return new SimpleNetObject(1,"注销成功");
+        }
+    }
+
     @RequestMapping("/testshirosession")
     @ResponseBody
     public SimpleNetObject testshirosession() throws Exception {

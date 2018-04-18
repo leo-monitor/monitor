@@ -4,6 +4,7 @@ import com.monitor.entity.SysUser;
 import com.monitor.entity.Tomcatlog;
 import com.monitor.service.TomcatlogService;
 import com.monitor.utils.*;
+import org.apache.catalina.User;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,23 +25,24 @@ public class TomcatlogController {
 	@Autowired
 	private TomcatlogService tomcatlogService;
 	@RequestMapping("/list")
-	public SimpleListObject<Tomcatlog> testtomcatlog(HttpSession session) {
+	public SimpleListObject<Tomcatlog> testtomcatlog(HttpSession session,JqQuery query) {
 		SimpleListObject<Tomcatlog> slo = new SimpleListObject<Tomcatlog>();
-		JqQuery query = new JqQuery();
+		if (null==query){
+			query = new JqQuery();
+			query.setPage(1);
+			query.setLimit(10);
+		}
 		SysUser user = (SysUser) SecurityUtils.getSubject().getSession().getAttribute("adminuser");
-		query.setPage(1);
-		query.setLimit(10);
 //		JqCondition jqCondition = new JqCondition();
 //		jqCondition.setDatatype(keytype);
 //		jqCondition.setKey(keyname);
 //		jqCondition.setValue(keyvalue);
 		try {
 			slo = tomcatlogService.query(query);
+			slo.setData(user);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
 		return slo;
-
 	}
 }

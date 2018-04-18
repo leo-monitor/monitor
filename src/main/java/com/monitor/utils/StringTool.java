@@ -493,11 +493,65 @@ public class StringTool {
 
         return (ipAddr & mask1) == (cidrIpAddr & mask1);
         
-    } 
-	
-//	public static void main(String[] args) {
-//		System.out.println(getIntervalTimeMaoHao(1000*60*60*25));
-//	}
+    }
+
+	/**
+	 *判断是否存在空值或空字符串
+	 * @param args
+	 * @return 存在则返回true 否则返回false
+	 */
+	public static boolean checkNullOrEmpty(String... args) {
+		boolean[] flags = new boolean[args.length];
+
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (null == arg||arg.trim().equals("")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * 判断多个参数是否为空
+	 * @param args 判断的参数
+	 * @return 返回判断结果数组
+	 */
+	public static boolean[] checkIfNull(String... args) {
+		boolean[] flags = new boolean[args.length];
+
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (null == arg||arg.trim().equals("")) {
+				flags[i] = true;
+			}
+		}
+
+		return flags;
+	}
+	/**
+	 *
+	 * @param flags 判断多个参数是否为空的结果数组
+	 * @param messages 需要设置的各参数为空的提示
+	 * @return 修改后的SimpleNetObject
+	 */
+	public static SimpleNetObject setNullMessages(boolean[] flags, String... messages) {
+		SimpleNetObject sno= new SimpleNetObject();
+		if (flags.length != messages.length) {
+			throw new RuntimeException("检测参数个数与错误信息个数不一致");
+		}
+		StringBuffer stringBuffer = new StringBuffer();
+		for (int i = 0; i < flags.length; i++) {
+			boolean flag = flags[i];
+			if (flag) {
+				sno.setResult(99);
+				stringBuffer.append(messages[i]).append(",");  //拼接多个信息
+			}
+		}
+		stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+		sno.setMessage(stringBuffer.toString());
+
+		return sno;
+	}
 
 
 
