@@ -2,6 +2,8 @@ package com.monitor.service;
 
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.github.miemiedev.mybatis.paginator.domain.Paginator;
@@ -35,6 +37,19 @@ public class TomcatlogService {
                 query.setOrdertype("asc");
                 query.setOrderfield(sbOrderField.toString());
             }
+            //创建一个可缓存的线程池
+            ExecutorService es2= Executors.newCachedThreadPool();
+            MyThread my =new MyThread();
+            MyThread my2 =new MyThread();
+            es2.execute(my);//不用new Thread,一分钟还没有就释放
+            es2.execute(my2);//不用new Thread,一分钟还没有就
+            es2.execute(my2);//不用new Thread,一分钟还没有就
+            es2.execute(my2);//不用new Thread,一分钟还没有就
+            es2.execute(my2);//不用new Thread,一分钟还没有就
+
+            System.out.println("当前线程名"+Thread.currentThread().getName());
+            es2.shutdown();//关闭线程池，如果不关闭线程池将一直运行。
+            System.out.println("开始执行查询");
             PageList<Tomcatlog> lstResults=this.tomcatlogmapper.query(query,pagebounds);
             SimpleListObject<Tomcatlog> slno=new SimpleListObject<Tomcatlog>();
             slno.setRows(lstResults);
@@ -56,4 +71,21 @@ public class TomcatlogService {
         }
         return 0;
     }
+}
+class MyThread implements Runnable{
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        for(int i=0;i<10;i++){
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+            System.out.println("MyThread---"+i);
+        }
+    }
+
 }

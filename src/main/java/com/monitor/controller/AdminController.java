@@ -91,6 +91,5 @@ public class AdminController {
 //		logger.error("error test");
 		sno=new SimpleNetObject(1,"success");
 		return sno;
-
 	}
 }
