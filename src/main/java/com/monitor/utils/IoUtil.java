@@ -209,4 +209,13 @@ public class IoUtil {
         long time = endat - startat;
         return time;
     }
+
+//    public static void main(String[] args) {
+//        try {
+//            int a = countLines("f:\\localhost_access_log.2018-04-26.txt");
+//            System.out.println("Get a is "+ a);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }
