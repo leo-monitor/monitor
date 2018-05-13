@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.naming.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /*登录认证,主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确。*/
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-            throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken){
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
        // logger.info("验证当前Subject时获取到token为：" + token.toString());
         //查出是否有此用户
